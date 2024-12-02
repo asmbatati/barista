@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<robot name="barista">
+<robot name="barista_robot">
 
   <!--Colors-->
-  <material name="red">
-    <color rgba="1.0 0.0 0.0 0.7"/>
+  <material name = "red">
+    <color rgba = "1 0 0 0.8 "/>
   </material>
 
-  <material name="green_light">
-    <color rgba="0.0 1.0 0.0 0.7"/>
+  <material name = "white">
+    <color rgba = "1 1 1 1 "/>
   </material>
 
-  <material name="green_dark">
-    <color rgba="0.0 0.5 0.0 0.7"/>
+  <material name = "blue">
+    <color rgba = "0 0 0.9 0.8 "/>
   </material>
 
-  <material name="blue">
-    <color rgba="0.0 0.0 1.0 0.7"/>
+  <material name = "black">
+    <color rgba = "0.1 0.1 0.1 1 "/>
   </material>
 
   <!--base link-->
@@ -34,7 +34,7 @@
       <geometry>
         <cylinder length="0.155" radius="0.178"/>
       </geometry>
-      <material name="red"/>
+      <material name="blue"/>
     </visual>
     <collision>
       <geometry>
@@ -65,7 +65,7 @@
       <geometry>
         <cylinder length="0.0206" radius="0.0352"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="1.5707 0 0"/>
@@ -95,7 +95,7 @@
       <geometry>
         <cylinder length="0.0206" radius="0.0352"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="-1.5707 0 0"/>
@@ -111,25 +111,25 @@
   </link>
 
   <!--standoff_rods cylinder radius=20/2mm length=220mm-->
-  <!--rod at (xp yp)-->
-  <joint name="standoff_rod_xpyp_joint" type="fixed">
+  <!--front left rod-->
+  <joint name="standoff_rod_front_left_joint" type="fixed">
     <parent link="chassis"/>
-    <child link="standoff_rod_xpyp"/>
-    <origin xyz="0.075 0.075 0.1875" rpy="0 0 0"/>
+    <child link="standoff_rod_front_left"/>
+    <origin xyz="0.09 0.09 0.1875" rpy="0 0 0"/>
   </joint>
 
-  <link name="standoff_rod_xpyp">
+  <link name="standoff_rod_front_left">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
-      <material name="green_dark"/>
+      <material name="white"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
     </collision>
     <inertial>
@@ -139,25 +139,25 @@
     </inertial>
   </link>
 
-  <!--rod at (xp yn)-->
-  <joint name="standoff_rod_xpyn_joint" type="fixed">
+  <!--front right rod-->
+  <joint name="standoff_rod_front_right_joint" type="fixed">
     <parent link="chassis"/>
-    <child link="standoff_rod_xpyn"/>
-    <origin xyz="0.075 -0.075 0.1875" rpy="0 0 0"/>
+    <child link="standoff_rod_front_right"/>
+    <origin xyz="0.09 -0.09 0.1875" rpy="0 0 0"/>
   </joint>
 
-  <link name="standoff_rod_xpyn">
+  <link name="standoff_rod_front_right">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
-      <material name="green_dark"/>
+      <material name="white"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
     </collision>
     <inertial>
@@ -167,25 +167,25 @@
     </inertial>
   </link>
 
-  <!--rod at (xn yp)-->
-  <joint name="standoff_rod_xnyp_joint" type="fixed">
+  <!--back left rod-->
+  <joint name="standoff_rod_back_left_joint" type="fixed">
     <parent link="chassis"/>
-    <child link="standoff_rod_xnyp"/>
-    <origin xyz="-0.075 0.075 0.1875" rpy="0 0 0"/>
+    <child link="standoff_rod_back_left"/>
+    <origin xyz="-0.09 0.09 0.1875" rpy="0 0 0"/>
   </joint>
 
-  <link name="standoff_rod_xnyp">
+  <link name="standoff_rod_back_left">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
-      <material name="green_dark"/>
+      <material name="white"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
     </collision>
     <inertial>
@@ -195,25 +195,25 @@
     </inertial>
   </link>
 
-  <!--rod at (xn yn)-->
-  <joint name="standoff_rod_xnyn_joint" type="fixed">
+  <!--back right rod-->
+  <joint name="standoff_rod_back_right_joint" type="fixed">
     <parent link="chassis"/>
-    <child link="standoff_rod_xnyn"/>
-    <origin xyz="-0.075 -0.075 0.1875" rpy="0 0 0"/>
+    <child link="standoff_rod_back_right"/>
+    <origin xyz="-0.09 -0.09 0.1875" rpy="0 0 0"/>
   </joint>
 
-  <link name="standoff_rod_xnyn">
+  <link name="standoff_rod_back_right">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
-      <material name="green_dark"/>
+      <material name="white"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder length="0.220" radius="0.020"/>
+        <cylinder length="0.220" radius="0.010"/>
       </geometry>
     </collision>
     <inertial>
@@ -236,7 +236,7 @@
       <geometry>
         <cylinder length="0.090" radius="0.160"/>
       </geometry>
-      <material name="green_light"/>
+      <material name="blue"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -270,7 +270,7 @@
       <geometry>
         <cylinder length="0.002" radius="0.010"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -300,7 +300,7 @@
       <geometry>
         <cylinder length="0.002" radius="0.010"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -330,7 +330,7 @@
       <geometry>
         <sphere radius="0.0176"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -361,7 +361,7 @@
       <geometry>
         <cylinder length="0.002" radius="0.010"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -391,7 +391,7 @@
       <geometry>
         <cylinder length="0.002" radius="0.010"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -421,7 +421,7 @@
       <geometry>
         <sphere radius="0.0176"/>
       </geometry>
-      <material name="blue"/>
+      <material name="black"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -568,21 +568,21 @@
 
   <!--GAZEBO Colors-->
   <gazebo reference="chassis">
-    <material>Gazebo/Red</material>
+    <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="cup_holder_tray">
-    <material>Gazebo/Red</material>
+    <material>Gazebo/Blue</material>
   </gazebo>
-  <gazebo reference="standoff_rod_xpyp">
+  <gazebo reference="standoff_rod_front_left">
     <material>Gazebo/White</material>
   </gazebo>
-  <gazebo reference="standoff_rod_xpyn">
+  <gazebo reference="standoff_rod_front_right">
     <material>Gazebo/White</material>
   </gazebo>
-  <gazebo reference="standoff_rod_xnyp">
+  <gazebo reference="standoff_rod_back_left">
     <material>Gazebo/White</material>
   </gazebo>
-  <gazebo reference="standoff_rod_xnyn">
+  <gazebo reference="standoff_rod_back_right">
     <material>Gazebo/White</material>
   </gazebo>
   <gazebo reference="laser_model">
