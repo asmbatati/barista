@@ -109,7 +109,7 @@ def generate_launch_description():
     # create and return launch description object
     ld.add_action(robot_state_publisher_node)
     ld.add_action(gazebo)
-    ld.add_action(spawn_robot)
     ld.add_action(rviz_node)
+    ld.add_action(spawn_robot)
 
     return ld
