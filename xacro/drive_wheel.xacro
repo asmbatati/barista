@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="drive_wheel" params="name radius width mass material">  
+        <link name="${name}">
+
+            <visual>
+                <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+                <geometry>
+                    <cylinder length="${width}" radius="${radius}"/>
+                </geometry>
+                <material name="${material}"/>
+            </visual>
+
+            <collision>
+                <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+                <geometry>
+                    <cylinder length="${width}" radius="${radius}"/>
+                </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="${mass}"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia  ixx="${mass*(3*radius*radius+width*width)/12}" ixy = "0" ixz = "0"
+                iyy="${mass*(radius*radius)/2}" iyz = "0"
+                izz="${mass*(3*radius*radius+width*width)/12}" />
+            </inertial>
+
+        </link>
+    </xacro:macro>
+</robot>  

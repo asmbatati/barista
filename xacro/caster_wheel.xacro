@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="caster_wheel" params="name radius mass material">  
+  <!--local variables-->
+  <xacro:property name="cylinder_r" value="${radius/3}"/>
+  <xacro:property name="cylinder_h" value="${radius/15}"/>
+  <xacro:property name="cylinder_m" value="${mass/5}"/>
+
+  <link name="${name}_wheel_r">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${cylinder_h}" radius="${cylinder_r}"/>
+      </geometry>
+      <material name="${material}"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${cylinder_h}" radius="${cylinder_r}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${cylinder_m}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia  ixx="${cylinder_m*(3*cylinder_r*cylinder_r+cylinder_h*cylinder_h)/12}" ixy = "0" ixz = "0"
+      iyy="${cylinder_m*(3*cylinder_r*cylinder_r+cylinder_h*cylinder_h)/12}" iyz = "0"
+      izz="${cylinder_m*(cylinder_r*cylinder_r)/2}" />
+    </inertial>
+  </link>
+
+  <joint name="${name}_pitch_joint" type="continuous">
+    <parent link="${name}_wheel_r"/>
+    <child link="${name}_wheel_p"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+
+  <link name="${name}_wheel_p">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${cylinder_h}" radius="${cylinder_r}"/>
+      </geometry>
+      <material name="${material}"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${cylinder_h}" radius="${cylinder_r}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${cylinder_m}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia  ixx="${cylinder_m*(3*cylinder_r*cylinder_r+cylinder_h*cylinder_h)/12}" ixy = "0" ixz = "0"
+      iyy="${cylinder_m*(3*cylinder_r*cylinder_r+cylinder_h*cylinder_h)/12}" iyz = "0"
+      izz="${cylinder_m*(cylinder_r*cylinder_r)/2}" />
+    </inertial>
+  </link>
+
+  <joint name="${name}_yaw_joint" type="continuous">
+    <parent link="${name}_wheel_p"/>
+    <child link="${name}_wheel_y"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1" rpy="0 0 0"/>
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+  </joint>
+  
+  <link name="${name}_wheel_y">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="${radius}"/>
+      </geometry>
+      <material name="${material}"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="${radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${mass}"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="${2.0/5.0*mass*radius*radius}" ixy="0.0" ixz="0.0" 
+      iyy="${2.0/5.0*mass*radius*radius}" iyz="0.0" 
+      izz="${2.0/5.0*mass*radius*radius}"/>
+    </inertial>
+  </link>
+</xacro:macro>
+
+</robot>  

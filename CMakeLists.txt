@@ -32,6 +32,7 @@ install(
     launch
 	meshes
 	worlds
+	xacro
   DESTINATION
     share/${PROJECT_NAME}/
 )

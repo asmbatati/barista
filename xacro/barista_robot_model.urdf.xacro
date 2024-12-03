@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="barista_robot">
+
+<!--parameters of the robot barista-->
+<xacro:property name="robot_name" value="$(arg robot_name)"/>
+<xacro:property name="include_laser" value="$(arg include_laser)"/>
+
+<!--include the macros-->
+<xacro:include filename="$(find barista_robot_description)/xacro/caster_wheel.xacro"/>
+<xacro:include filename="$(find barista_robot_description)/xacro/cup_holder_tray.xacro"/>
+<xacro:include filename="$(find barista_robot_description)/xacro/drive_wheel.xacro"/>
+<xacro:include filename="$(find barista_robot_description)/xacro/standoff_rod.xacro"/>
+<xacro:if value="${include_laser}">
+    <xacro:include filename="$(find barista_robot_description)/xacro/laser_scanner.xacro"/>
+</xacro:if>
+
+<!--chassis parameters-->
+<xacro:property name="chassis_diameter" value="0.356"/>
+<xacro:property name="chassis_height" value="0.155"/>
+<xacro:property name="chassis_mass" value="10"/>
+<xacro:property name="chassis_material" value="blue"/>
+
+<!--cup holder tray parameters-->
+<xacro:property name="tray_diameter" value="0.320"/>
+<xacro:property name="tray_height" value="0.090"/>
+<xacro:property name="tray_mass" value="5"/>
+<xacro:property name="tray_material" value="blue"/>
+
+<!--standoff parameters-->
+<xacro:property name="standoff_diameter" value="0.020"/>
+<xacro:property name="standoff_height" value="0.220"/>
+<xacro:property name="standoff_mass" value="0.2"/>
+<xacro:property name="standoff_material" value="white"/>
+
+<!--wheel parameters-->
+<xacro:property name="wheel_diameter" value="0.0704"/>
+<xacro:property name="wheel_width" value="0.0206"/>
+<xacro:property name="wheel_mass" value="0.5"/>
+<xacro:property name="wheel_material" value="black"/>
+<xacro:property name="wheel_separation" value="0.300"/>
+
+<!--caster parameters-->
+<xacro:property name="caster_radius" value="0.020"/>
+<xacro:property name="caster_mass" value="0.1"/>
+<xacro:property name="caster_material" value="black"/>
+
+<!--laser parameters-->
+<xacro:property name="laser_mass" value="0.160"/>
+
+<!--material alpha-->
+<xacro:property name="alpha" value="1.0"/>
+
+<!--urdf materials-->
+<material name = "red">
+    <color rgba = "1 0 0 0.8 "/>
+</material>
+
+<material name = "white">
+    <color rgba = "1 1 1 1 "/>
+</material>
+
+<material name = "blue">
+    <color rgba = "0 0 0.9 0.8 "/>
+</material>
+
+<material name = "black">
+    <color rgba = "0.1 0.1 0.1 1 "/>
+</material>
+
+<!--define the robot body-->
+<!--base link-->
+<link name="base_link">
+</link>
+
+<!--generate the chassis and cup holder tray-->
+<xacro:cup_holder_tray name="chassis" radius="${chassis_diameter/2}" height="${chassis_height}" mass="${chassis_mass}" material="${chassis_material}"/>
+<xacro:cup_holder_tray name="cup_holder_tray" radius="${tray_diameter/2}" height="${tray_height}" mass="${tray_mass}" material="${tray_material}"/>
+
+<!--generate 4 standoff rods-->
+<xacro:standoff_rod name="standoff_rod_front_left" radius="${standoff_diameter/2}" height="${standoff_height}" mass="${standoff_mass}" material="${standoff_material}"/>
+<xacro:standoff_rod name="standoff_rod_front_right" radius="${standoff_diameter/2}" height="${standoff_height}" mass="${standoff_mass}" material="${standoff_material}"/>
+<xacro:standoff_rod name="standoff_rod_back_left" radius="${standoff_diameter/2}" height="${standoff_height}" mass="${standoff_mass}" material="${standoff_material}"/>
+<xacro:standoff_rod name="standoff_rod_back_right" radius="${standoff_diameter/2}" height="${standoff_height}" mass="${standoff_mass}" material="${standoff_material}"/>
+
+<!--generate 2 wheels-->
+<xacro:drive_wheel name="left_wheel" radius="${wheel_diameter/2}" width="${wheel_width}" mass="${wheel_mass}" material="${wheel_material}"/>
+<xacro:drive_wheel name="right_wheel" radius="${wheel_diameter/2}" width="${wheel_width}" mass="${wheel_mass}" material="${wheel_material}"/>
+
+<!--generate 2 caster wheels-->
+<xacro:caster_wheel name="front_caster" radius="${caster_radius}" mass="${caster_mass}" material="${caster_material}"/>
+<xacro:caster_wheel name="back_caster" radius="${caster_radius}" mass="${caster_mass}" material="${caster_material}"/>
+
+<!--generate the laser scanner-->
+<xacro:if value="${include_laser}">
+    <xacro:laser_scanner name="laser_scanner" mass="${laser_mass}"/>
+</xacro:if>
+
+<!--define the robot joints-->
+<!--base_link and chassis-->
+<joint name="base_link_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="0 0 ${chassis_height/2}" rpy="0 0 0"/>
+</joint>
+
+<!--chassis and cup holder tray-->
+<joint name="chassis_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="cup_holder_tray"/>
+    <origin xyz="0 0 ${chassis_height/2+standoff_height+tray_height/2}" rpy="0 0 0"/>
+</joint>
+
+<!--chassis and standoff rods-->
+<joint name="standoff_rod_front_left_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="standoff_rod_front_left"/>
+    <origin xyz="${tray_diameter/4} ${tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+</joint>
+<joint name="standoff_rod_front_right_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="standoff_rod_front_right"/>
+    <origin xyz="${tray_diameter/4} ${-tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+</joint>
+<joint name="standoff_rod_back_left_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="standoff_rod_back_left"/>
+    <origin xyz="${-tray_diameter/4} ${tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+</joint>
+<joint name="standoff_rod_back_right_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="standoff_rod_back_right"/>
+    <origin xyz="${-tray_diameter/4} ${-tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+</joint>
+
+<!--chassis and wheels-->
+<joint name="left_wheel_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="left_wheel"/>
+    <origin xyz="0 ${wheel_separation/2} ${-chassis_height/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+</joint>
+
+<joint name="right_wheel_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="right_wheel"/>
+    <origin xyz="0 ${-wheel_separation/2} ${-chassis_height/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+</joint>
+
+<!--chassis and casters-->
+<joint name="front_caster_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="front_caster_wheel_r"/>
+    <origin xyz="${chassis_diameter/3} 0 ${-chassis_height/2-wheel_diameter/2+caster_radius}" rpy="0 0 0"/>
+    <axis xyz="1 0 0" rpy="0 0 0"/>
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+</joint>
+
+<joint name="back_caster_joint" type="continuous">
+    <parent link="chassis"/>
+    <child link="back_caster_wheel_r"/>
+    <origin xyz="${-chassis_diameter/3} 0 ${-chassis_height/2-wheel_diameter/2+caster_radius}" rpy="0 0 0"/>
+    <axis xyz="1 0 0" rpy="0 0 0"/>
+    <limit effort="1000.0" velocity="100.0" />
+    <dynamics damping="0.0" friction="0.1"/>
+</joint>
+
+<!--chassis and laser-->
+<xacro:if value="${include_laser}">
+    <joint name="laser_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="laser_scanner"/>
+        <origin xyz="${chassis_diameter/3} 0 ${chassis_height/2}" rpy="0 0 0"/>
+    </joint>
+</xacro:if>
+
+<!--gazebo plugins-->
+<!--joint state publisher-->
+<gazebo>
+    <plugin name="joint_state_publisher_node" filename="libgazebo_ros_joint_state_publisher.so">
+        <ros>
+            <namespace>/${robot_name}</namespace>
+            <remapping>~/out:=joint_states</remapping>
+        </ros>
+        <update_rate>30</update_rate>
+        <joint_name>left_wheel_joint</joint_name>
+        <joint_name>right_wheel_joint</joint_name>
+        <joint_name>front_caster_joint</joint_name>
+        <joint_name>front_caster_pitch_joint</joint_name>
+        <joint_name>front_caster_yaw_joint</joint_name>
+        <joint_name>back_caster_joint</joint_name>
+        <joint_name>back_caster_pitch_joint</joint_name>
+        <joint_name>back_caster_yaw_joint</joint_name>
+    </plugin>
+</gazebo>
+
+<!--differential drive-->
+<gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller_node">
+        <ros>
+            <namespace>/${robot_name}</namespace>
+            <remapping>/out:=cmd_vel</remapping>
+        </ros>
+        <!-- wheels -->
+        <left_joint>left_wheel_joint</left_joint>
+        <right_joint>right_wheel_joint</right_joint>
+        <!-- kinematics -->
+        <wheel_separation>${wheel_separation}</wheel_separation>
+        <wheel_diameter>${wheel_diameter}</wheel_diameter>
+        <!-- limits -->
+        <max_wheel_torque>1.0</max_wheel_torque>
+        <max_wheel_acceleration>2.0</max_wheel_acceleration>
+        <!-- output -->
+        <publish_odom>true</publish_odom>
+        <publish_odom_tf>true</publish_odom_tf>
+        <odometry_frame>odom</odometry_frame>
+        <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+</gazebo>
+
+<!--gazebo materials and frictions coefficients-->
+<gazebo reference="left_wheel">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <material>Gazebo/Black</material>
+</gazebo>
+<gazebo reference="right_wheel">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
+    <material>Gazebo/Black</material>
+</gazebo>
+<gazebo reference="front_caster_wheel_y">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <material>Gazebo/Black</material>
+</gazebo>
+<gazebo reference="back_caster_wheel_y">
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <material>Gazebo/Black</material>
+</gazebo>
+<gazebo reference="chassis">
+    <material>Gazebo/Blue</material>
+</gazebo>
+<gazebo reference="cup_holder_tray">
+    <material>Gazebo/Blue</material>
+</gazebo>
+<gazebo reference="standoff_rod_front_left">
+    <material>Gazebo/White</material>
+</gazebo>
+<gazebo reference="standoff_rod_front_right">
+    <material>Gazebo/White</material>
+</gazebo>
+<gazebo reference="standoff_rod_back_left">
+    <material>Gazebo/White</material>
+</gazebo>
+<gazebo reference="standoff_rod_back_right">
+    <material>Gazebo/White</material>
+</gazebo>
+<xacro:if value="${include_laser}">
+    <gazebo reference="laser_scanner">
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+</xacro:if>
+
+
+</robot>  
