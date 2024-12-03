@@ -442,6 +442,7 @@
     <child link="laser_model"/>
     <origin rpy="0 0 0" xyz="0.120 0.0 +0.1275"/>
   </joint>
+  
   <link name="laser_model">
     <visual>
       <origin rpy="0 0 0" xyz="0.0 0.0 -0.05"/>
@@ -503,6 +504,7 @@
         <update_rate>100.0</update_rate>
         <plugin name="laser_node" filename="libgazebo_ros_ray_sensor.so">
           <ros>
+            <!-- <namespace>/barista_robot</namespace> -->
             <remapping>~/out:=scan</remapping>
           </ros>
           <output_type>sensor_msgs/LaserScan</output_type>
