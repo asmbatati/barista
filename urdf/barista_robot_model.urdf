@@ -115,7 +115,7 @@
   <joint name="standoff_rod_front_left_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_front_left"/>
-    <origin xyz="0.04 0.12 0.1875" rpy="0 0 0"/>
+    <origin xyz="0.055 0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_front_left">
@@ -143,7 +143,7 @@
   <joint name="standoff_rod_front_right_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_front_right"/>
-    <origin xyz="0.04 -0.12 0.1875" rpy="0 0 0"/>
+    <origin xyz="0.055 -0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_front_right">
@@ -171,7 +171,7 @@
   <joint name="standoff_rod_back_left_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_back_left"/>
-    <origin xyz="-0.04 0.12 0.1875" rpy="0 0 0"/>
+    <origin xyz="-0.055 0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_back_left">
@@ -199,7 +199,7 @@
   <joint name="standoff_rod_back_right_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_back_right"/>
-    <origin xyz="-0.04 -0.12 0.1875" rpy="0 0 0"/>
+    <origin xyz="-0.055 -0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_back_right">
@@ -453,7 +453,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://barista_robot_description/meshes/hokuyo_urg_04lx.dae"/>
+        <cylinder length="0.040" radius="0.03"/>
       </geometry>
     </collision>
     <inertial>
@@ -488,7 +488,7 @@
         <ray>
           <scan>
             <horizontal>
-              <samples>200</samples>
+              <samples>100</samples>
               <resolution>1.0</resolution>
               <min_angle>-3.14</min_angle>
               <max_angle>3.14</max_angle>
@@ -501,7 +501,7 @@
         </ray>
         <always_on>true</always_on>
         <visualize>true</visualize>
-        <update_rate>100.0</update_rate>
+        <update_rate>50.0</update_rate>
         <plugin name="laser_node" filename="libgazebo_ros_ray_sensor.so">
           <ros>
             <remapping>~/out:=scan</remapping>
