@@ -85,7 +85,8 @@ def generate_launch_description():
     )
 
     # Spawn Morty
-    entity_name = robot_base_name + "-" + str(int(random.random() * 100000))
+    # entity_name = robot_base_name + "-" + str(int(random.random() * 100000))
+    entity_name = robot1_name
     spawn_robot1 = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
@@ -98,7 +99,8 @@ def generate_launch_description():
     )
 
     # Spawn Rick
-    entity_name = robot_base_name + "-" + str(int(random.random() * 100000))
+    # entity_name = robot_base_name + "-" + str(int(random.random() * 100000))
+    entity_name = robot2_name
     spawn_robot2 = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
