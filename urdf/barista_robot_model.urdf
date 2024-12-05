@@ -115,7 +115,7 @@
   <joint name="standoff_rod_front_left_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_front_left"/>
-    <origin xyz="0.09 0.09 0.1875" rpy="0 0 0"/>
+    <origin xyz="0.04 0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_front_left">
@@ -143,7 +143,7 @@
   <joint name="standoff_rod_front_right_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_front_right"/>
-    <origin xyz="0.09 -0.09 0.1875" rpy="0 0 0"/>
+    <origin xyz="0.04 -0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_front_right">
@@ -171,7 +171,7 @@
   <joint name="standoff_rod_back_left_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_back_left"/>
-    <origin xyz="-0.09 0.09 0.1875" rpy="0 0 0"/>
+    <origin xyz="-0.04 0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_back_left">
@@ -199,7 +199,7 @@
   <joint name="standoff_rod_back_right_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_back_right"/>
-    <origin xyz="-0.09 -0.09 0.1875" rpy="0 0 0"/>
+    <origin xyz="-0.04 -0.12 0.1875" rpy="0 0 0"/>
   </joint>
 
   <link name="standoff_rod_back_right">
@@ -440,7 +440,7 @@
   <joint name="laser_model_link_joint" type="fixed">
     <parent link="chassis"/>
     <child link="laser_model"/>
-    <origin rpy="0 0 0" xyz="0.120 0.0 +0.1275"/>
+    <origin rpy="0 0 0" xyz="0.120 0.0 0.1275"/>
   </joint>
   
   <link name="laser_model">
@@ -484,7 +484,7 @@
     <!-- LIDAR LASER -->
    <gazebo reference="laser_model">
     <sensor name="sensor_ray" type="ray">
-        <pose>0 0 2.2 0 0 2.2</pose>
+        <pose>0 0 0 0 0 0</pose>
         <ray>
           <scan>
             <horizontal>
@@ -507,6 +507,7 @@
             <remapping>~/out:=scan</remapping>
           </ros>
           <output_type>sensor_msgs/LaserScan</output_type>
+          <frame_name>laser_model</frame_name>
         </plugin>
       </sensor>
    </gazebo>
