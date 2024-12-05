@@ -5,7 +5,7 @@ from launch.actions import DeclareLaunchArgument
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
-from launch.substitutions import Command, LaunchConfiguration
+from launch.substitutions import Command
 from ament_index_python.packages import get_package_share_directory
 from ament_index_python.packages import get_package_prefix
 
@@ -13,7 +13,7 @@ def generate_launch_description():
     #files
     description_package_name = "barista_robot_description"
     xacro_file='barista_robot_model.urdf.xacro'
-    rviz_file = 'xacro_vis.rviz'
+    rviz_file = 'mrs_vis.rviz'
     world_selected = 'barista_empty.world'
     # Position and orientation
     Morty_position = [1.0, 1.0, 0.2]
@@ -55,7 +55,7 @@ def generate_launch_description():
     # Morty State Publisher
     robot_desc_path = os.path.join(get_package_share_directory(description_package_name))
     xacro_path = os.path.join(robot_desc_path, 'xacro', xacro_file)
-    robot1_name='Morty'
+    robot1_name='morty'
     include_laser='true'
     robot1_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -63,7 +63,7 @@ def generate_launch_description():
         name='robot_state_publisher_node',
         namespace=robot1_name,
         emulate_tty=True,
-        parameters=[{ 'use_sim_time': True,
+        parameters=[{ 'frame_prefix': robot1_name+'/', 'use_sim_time': True,
                      'robot_description': Command(['xacro ', xacro_path, ' robot_name:=', robot1_name, ' include_laser:=', include_laser, " robot_color:=", "Blue"])}],
         output='screen'
     )
@@ -71,7 +71,7 @@ def generate_launch_description():
     # Rick State Publisher
     robot_desc_path = os.path.join(get_package_share_directory(description_package_name))
     xacro_path = os.path.join(robot_desc_path, 'xacro', xacro_file)
-    robot2_name='Rick'
+    robot2_name='rick'
     include_laser='true'
     robot2_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -79,7 +79,7 @@ def generate_launch_description():
         name='robot_state_publisher_node',
         namespace=robot2_name,
         emulate_tty=True,
-        parameters=[{ 'use_sim_time': True,
+        parameters=[{ 'frame_prefix': robot2_name+'/', 'use_sim_time': True,
                      'robot_description': Command(['xacro ', xacro_path, ' robot_name:=', robot2_name, ' include_laser:=', include_laser, " robot_color:=", "Red"])}],
         output='screen'
     )
@@ -113,7 +113,7 @@ def generate_launch_description():
     static_tf1 = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        name='static_transform_publisher_turtle_odom',
+        name='static_transform_publisher_odom',
         output='screen',
         emulate_tty=True,
         arguments=['0', '0', '0', '0', '0', '0', 'world', robot1_name+'/odom']
@@ -121,7 +121,7 @@ def generate_launch_description():
     static_tf2 = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        name='static_transform_publisher_turtle_odom',
+        name='static_transform_publisher_odom',
         output='screen',
         emulate_tty=True,
         arguments=['0', '0', '0', '0', '0', '0', 'world', robot2_name+'/odom']
