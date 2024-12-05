@@ -4,19 +4,19 @@
     <xacro:macro name="laser_scanner" params="name mass">  
         <xacro:property name="laser_r" value="0.05"/>
         <xacro:property name="laser_h" value="0.07"/>
-        <link name="${name}">
+        <link name="laser_scanner">
 
             <visual>
-                <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                <origin rpy="0 0 0" xyz="0.0 0.0 -0.05"/>
                 <geometry>
                     <mesh filename="package://barista_robot_description/meshes/hokuyo_urg_04lx.dae"/>
                 </geometry>
             </visual>
 
             <collision>
-                <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                <origin rpy="0 0 0" xyz="0.0 0.0 -0.05"/>
                 <geometry>
-                    <mesh filename="package://barista_robot_description/meshes/hokuyo_urg_04lx.dae"/>
+                    <cylinder length="0.040" radius="0.03"/>
                 </geometry>
             </collision>
 
@@ -31,7 +31,7 @@
         </link>
 
         <!--laser plugin-->
-        <gazebo reference="${name}">
+        <gazebo reference="laser_scanner">
             <sensor name="sensor_ray" type="ray">
                 <pose>0 0 0 0 0 0</pose>
                 <ray>
@@ -56,6 +56,7 @@
                         <remapping>~/out:=scan</remapping>
                     </ros>
                     <output_type>sensor_msgs/LaserScan</output_type>
+                    <frame_name>laser_scanner</frame_name>
                 </plugin>
             </sensor>
         </gazebo>

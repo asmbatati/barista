@@ -114,22 +114,22 @@
 <joint name="standoff_rod_front_left_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_front_left"/>
-    <origin xyz="${tray_diameter/4} ${tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+    <origin xyz="0.055 0.12 0.1875" rpy="0 0 0"/>
 </joint>
 <joint name="standoff_rod_front_right_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_front_right"/>
-    <origin xyz="${tray_diameter/4} ${-tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+    <origin xyz="0.055 -0.12 0.1875" rpy="0 0 0"/>
 </joint>
 <joint name="standoff_rod_back_left_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_back_left"/>
-    <origin xyz="${-tray_diameter/4} ${tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+    <origin xyz="-0.055 0.12 0.1875" rpy="0 0 0"/>
 </joint>
 <joint name="standoff_rod_back_right_joint" type="fixed">
     <parent link="chassis"/>
     <child link="standoff_rod_back_right"/>
-    <origin xyz="${-tray_diameter/4} ${-tray_diameter/4} ${chassis_height/2+standoff_height/2}" rpy="0 0 0"/>
+    <origin xyz="-0.055 -0.12 0.1875" rpy="0 0 0"/>
 </joint>
 
 <!--chassis and wheels-->
@@ -175,7 +175,7 @@
     <joint name="laser_joint" type="fixed">
         <parent link="chassis"/>
         <child link="laser_scanner"/>
-        <origin xyz="${chassis_diameter/3} 0 ${chassis_height/2}" rpy="0 0 0"/>
+        <origin xyz="0.120 0.0 0.1275" rpy="0 0 0"/>
     </joint>
 </xacro:if>
 
@@ -203,7 +203,7 @@
 <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller_node">
         <ros>
-            <namespace>/${robot_name}</namespace>
+            <!-- <namespace>/${robot_name}</namespace> -->
             <remapping>/out:=cmd_vel</remapping>
         </ros>
         <!-- wheels -->
