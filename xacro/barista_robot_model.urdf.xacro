@@ -4,6 +4,7 @@
 <!--parameters of the robot barista-->
 <xacro:property name="robot_name" value="$(arg robot_name)"/>
 <xacro:property name="include_laser" value="$(arg include_laser)"/>
+<xacro:property name="robot_color" default="$(arg robot_color)"/>
 
 <!--include the macros-->
 <xacro:include filename="$(find barista_robot_description)/xacro/caster_wheel.xacro"/>
@@ -18,31 +19,33 @@
 <xacro:property name="chassis_diameter" value="0.356"/>
 <xacro:property name="chassis_height" value="0.155"/>
 <xacro:property name="chassis_mass" value="10"/>
-<xacro:property name="chassis_material" value="blue"/>
+<xacro:property name="chassis_material" value="Blue"/>
+<xacro:property name="chassis_gazebo_color" value="Gazebo/Blue"/>
 
 <!--cup holder tray parameters-->
 <xacro:property name="tray_diameter" value="0.320"/>
 <xacro:property name="tray_height" value="0.090"/>
 <xacro:property name="tray_mass" value="5"/>
-<xacro:property name="tray_material" value="blue"/>
+<xacro:property name="tray_material" value="Blue"/>
+<xacro:property name="tray_gazebo_color" value="Gazebo/Blue"/>
 
 <!--standoff parameters-->
 <xacro:property name="standoff_diameter" value="0.020"/>
 <xacro:property name="standoff_height" value="0.220"/>
 <xacro:property name="standoff_mass" value="0.2"/>
-<xacro:property name="standoff_material" value="white"/>
+<xacro:property name="standoff_material" value="White"/>
 
 <!--wheel parameters-->
 <xacro:property name="wheel_diameter" value="0.0704"/>
 <xacro:property name="wheel_width" value="0.0206"/>
 <xacro:property name="wheel_mass" value="0.5"/>
-<xacro:property name="wheel_material" value="black"/>
+<xacro:property name="wheel_material" value="Black"/>
 <xacro:property name="wheel_separation" value="0.300"/>
 
 <!--caster parameters-->
 <xacro:property name="caster_radius" value="0.020"/>
 <xacro:property name="caster_mass" value="0.1"/>
-<xacro:property name="caster_material" value="black"/>
+<xacro:property name="caster_material" value="Black"/>
 
 <!--laser parameters-->
 <xacro:property name="laser_mass" value="0.160"/>
@@ -55,15 +58,15 @@
     <color rgba = "1 0 0 0.8 "/>
 </material>
 
-<material name = "white">
+<material name = "White">
     <color rgba = "1 1 1 1 "/>
 </material>
 
-<material name = "blue">
+<material name = "Blue">
     <color rgba = "0 0 0.9 0.8 "/>
 </material>
 
-<material name = "black">
+<material name = "Black">
     <color rgba = "0.1 0.1 0.1 1 "/>
 </material>
 
@@ -73,8 +76,8 @@
 </link>
 
 <!--generate the chassis and cup holder tray-->
-<xacro:cup_holder_tray name="chassis" radius="${chassis_diameter/2}" height="${chassis_height}" mass="${chassis_mass}" material="${chassis_material}"/>
-<xacro:cup_holder_tray name="cup_holder_tray" radius="${tray_diameter/2}" height="${tray_height}" mass="${tray_mass}" material="${tray_material}"/>
+<xacro:cup_holder_tray name="chassis" radius="${chassis_diameter/2}" height="${chassis_height}" mass="${chassis_mass}" material="${robot_color}"/>
+<xacro:cup_holder_tray name="cup_holder_tray" radius="${tray_diameter/2}" height="${tray_height}" mass="${tray_mass}" material="${robot_color}"/>
 
 <!--generate 4 standoff rods-->
 <xacro:standoff_rod name="standoff_rod_front_left" radius="${standoff_diameter/2}" height="${standoff_height}" mass="${standoff_mass}" material="${standoff_material}"/>
@@ -203,7 +206,7 @@
 <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller_node">
         <ros>
-            <!-- <namespace>/${robot_name}</namespace> -->
+            <namespace>/${robot_name}</namespace>
             <remapping>/out:=cmd_vel</remapping>
         </ros>
         <!-- wheels -->
@@ -253,10 +256,10 @@
     <material>Gazebo/Black</material>
 </gazebo>
 <gazebo reference="chassis">
-    <material>Gazebo/Blue</material>
+    <material>Gazebo/${robot_color}</material>
 </gazebo>
 <gazebo reference="cup_holder_tray">
-    <material>Gazebo/Blue</material>
+    <material>Gazebo/${robot_color}</material>
 </gazebo>
 <gazebo reference="standoff_rod_front_left">
     <material>Gazebo/White</material>
