@@ -6,6 +6,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch.substitutions import Command
+from launch.actions import TimerAction
 from ament_index_python.packages import get_package_share_directory
 from ament_index_python.packages import get_package_prefix
 
@@ -13,7 +14,7 @@ def generate_launch_description():
     #files
     description_package_name = "barista_robot_description"
     xacro_file='barista_robot_model.urdf.xacro'
-    rviz_file = 'mrs_vis.rviz'
+    rviz_file = 'mrs_vis2.rviz'
     world_selected = 'barista_empty.world'
     # Position and orientation
     Morty_position = [1.0, 1.0, 0.2]
@@ -129,6 +130,16 @@ def generate_launch_description():
         arguments=['0', '0', '0', '0', '0', '0', 'world', robot2_name+'/odom']
     )
 
+    # static_tf1_with_delay = TimerAction(
+    #     period=15.0,  # Delay of 5 seconds
+    #     actions=[static_tf1]
+    # )
+
+    # static_tf2_with_delay = TimerAction(
+    #     period=15.0,  # Delay of 5 seconds
+    #     actions=[static_tf2]
+    # )
+
     # RVIZ Configuration
     rviz_config_dir = os.path.join(get_package_share_directory(description_package_name), 'rviz', rviz_file)
     rviz_node = Node(
@@ -139,6 +150,11 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
         arguments=['-d', rviz_config_dir]
     )
+
+    # rviz_with_delay = TimerAction(
+    #     period=5.0,  # Delay RViz by 5 seconds
+    #     actions=[rviz_node]
+    # )
 
     return LaunchDescription([
         world_file_arg,
