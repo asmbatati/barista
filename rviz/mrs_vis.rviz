@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Morty1/Description Topic1
+        - /Rick1/Description Topic1
       Splitter Ratio: 0.5
     Tree Height: 558
   - Class: rviz_common/Selection
@@ -25,7 +27,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: MortyScan
 Visualization Manager:
   Class: ""
   Displays:
@@ -56,7 +58,7 @@ Visualization Manager:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
-        Reliability Policy: Reliable
+        Reliability Policy: Best Effort
         Value: /morty/robot_description
       Enabled: true
       Links:
@@ -161,7 +163,7 @@ Visualization Manager:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
-        Reliability Policy: Reliable
+        Reliability Policy: Best Effort
         Value: /rick/robot_description
       Enabled: true
       Links:
@@ -257,6 +259,212 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/LaserScan
+      Color: 0; 0; 255
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 0
+      Min Color: 0; 0; 255
+      Min Intensity: 0
+      Name: MortyScan
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.05000000074505806
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /morty/scan
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 0; 0
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 0
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: RickScan
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.05000000074505806
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /rick/scan
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        morty/back_caster_wheel_p:
+          Value: true
+        morty/back_caster_wheel_r:
+          Value: true
+        morty/back_caster_wheel_y:
+          Value: true
+        morty/base_link:
+          Value: true
+        morty/chassis:
+          Value: true
+        morty/cup_holder_tray:
+          Value: true
+        morty/front_caster_wheel_p:
+          Value: true
+        morty/front_caster_wheel_r:
+          Value: true
+        morty/front_caster_wheel_y:
+          Value: true
+        morty/laser_scanner:
+          Value: true
+        morty/left_wheel:
+          Value: true
+        morty/odom:
+          Value: true
+        morty/right_wheel:
+          Value: true
+        morty/standoff_rod_back_left:
+          Value: true
+        morty/standoff_rod_back_right:
+          Value: true
+        morty/standoff_rod_front_left:
+          Value: true
+        morty/standoff_rod_front_right:
+          Value: true
+        rick/back_caster_wheel_p:
+          Value: true
+        rick/back_caster_wheel_r:
+          Value: true
+        rick/back_caster_wheel_y:
+          Value: true
+        rick/base_link:
+          Value: true
+        rick/chassis:
+          Value: true
+        rick/cup_holder_tray:
+          Value: true
+        rick/front_caster_wheel_p:
+          Value: true
+        rick/front_caster_wheel_r:
+          Value: true
+        rick/front_caster_wheel_y:
+          Value: true
+        rick/laser_scanner:
+          Value: true
+        rick/left_wheel:
+          Value: true
+        rick/odom:
+          Value: true
+        rick/right_wheel:
+          Value: true
+        rick/standoff_rod_back_left:
+          Value: true
+        rick/standoff_rod_back_right:
+          Value: true
+        rick/standoff_rod_front_left:
+          Value: true
+        rick/standoff_rod_front_right:
+          Value: true
+        world:
+          Value: true
+      Marker Scale: 0.6000000238418579
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        world:
+          morty/odom:
+            morty/base_link:
+              morty/chassis:
+                morty/back_caster_wheel_r:
+                  morty/back_caster_wheel_p:
+                    morty/back_caster_wheel_y:
+                      {}
+                morty/cup_holder_tray:
+                  {}
+                morty/front_caster_wheel_r:
+                  morty/front_caster_wheel_p:
+                    morty/front_caster_wheel_y:
+                      {}
+                morty/laser_scanner:
+                  {}
+                morty/left_wheel:
+                  {}
+                morty/right_wheel:
+                  {}
+                morty/standoff_rod_back_left:
+                  {}
+                morty/standoff_rod_back_right:
+                  {}
+                morty/standoff_rod_front_left:
+                  {}
+                morty/standoff_rod_front_right:
+                  {}
+          rick/odom:
+            rick/base_link:
+              rick/chassis:
+                rick/back_caster_wheel_r:
+                  rick/back_caster_wheel_p:
+                    rick/back_caster_wheel_y:
+                      {}
+                rick/cup_holder_tray:
+                  {}
+                rick/front_caster_wheel_r:
+                  rick/front_caster_wheel_p:
+                    rick/front_caster_wheel_y:
+                      {}
+                rick/laser_scanner:
+                  {}
+                rick/left_wheel:
+                  {}
+                rick/right_wheel:
+                  {}
+                rick/standoff_rod_back_left:
+                  {}
+                rick/standoff_rod_back_right:
+                  {}
+                rick/standoff_rod_front_left:
+                  {}
+                rick/standoff_rod_front_right:
+                  {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -303,7 +511,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 5.178192615509033
+      Distance: 4.426517963409424
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -318,10 +526,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.22039726376533508
+      Pitch: 0.28039735555648804
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.6653943657875061
+      Yaw: 5.593579292297363
     Saved: ~
 Window Geometry:
   Displays:
